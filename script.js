@@ -113,7 +113,7 @@ async function fetchCats() {
     cats = Array.from({ length: TOTAL_CATS }, (_, i) => ({
       id: i,
       imageUrl: `https://cataas.com/cat?width=600&height=600&random=${Date.now() + i}`,
-      name: `Paw #${i + 1}`,
+      name: `Kitty #${i + 1}`,
       vibe: randomFrom(vibes),
       tags: randomTags(3),
     }));
@@ -313,3 +313,4 @@ window.addEventListener("mouseup", onGestureEnd);
 
 // ===== Summary Close =====
 summaryClose.addEventListener("click", () => window.location.reload());
+
