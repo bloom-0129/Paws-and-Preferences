@@ -321,6 +321,7 @@ body {
   backdrop-filter: blur(6px);
   background: rgba(0,0,0,0.55);
   z-index: 9998;
+  color: ffffff;
 }
 
 #tutorial-overlay.active {
@@ -427,3 +428,4 @@ body {
   .cat-card { max-width: 100%; }
   .cat-image-wrapper { height: 240px; }
 }
+
