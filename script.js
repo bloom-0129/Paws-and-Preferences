@@ -102,7 +102,7 @@ async function fetchCats() {
         imageUrl: id
           ? `https://cataas.com/cat/${id}?width=600&height=600&random=${Math.random()}`
           : `https://cataas.com/cat?width=600&height=600&random=${Math.random()}`,
-        name: `Paw #${index + 1}`,
+        name: `Kitty #${index + 1}`,
         vibe: randomFrom(vibes),
         tags: randomTags(4)
       };
@@ -241,32 +241,49 @@ function handleChoice(liked) {
 }
 
 // ===== Summary =====
-function showSummary() {
+async function showSummary() {
   switchScreen("summary");
 
-  summaryIntro.classList.remove("hidden");
+  summaryIntro.classList.add("hidden");
   summaryContent.classList.add("hidden");
   likedGrid.innerHTML = "";
 
-  setTimeout(() => {
-    summaryIntro.classList.add("hidden");
-    summaryContent.classList.remove("hidden");
+  // show loading spinner
+  const loader = document.getElementById("summary-loading");
+  loader.classList.remove("hidden");
 
-    summaryCount.textContent =
-      likedCats.length === 0
-        ? "Awww, no purrfect matches right now."
-        : `You liked ${likedCats.length} out of ${cats.length} cats.`;
+  // Wait for liked kitties to load
+  await Promise.all(
+    likedCats.map(cat => {
+      return new Promise(resolve => {
+        const img = new Image();
+        img.src = cat.imageUrl;
+        img.onload = resolve;
+        img.onerror = resolve;
+      });
+    })
+  );
 
-    likedCats.forEach((cat, idx) => {
-      const tile = document.createElement("div");
-      tile.className = "liked-tile";
-      tile.innerHTML = `
-        <img src="${cat.imageUrl}" alt="${cat.name}">
-        <div class="liked-tile-caption">${cat.name}</div>
-      `;
-      likedGrid.appendChild(tile);
-    });
-  }, 2000);
+  // hide loader
+  loader.classList.add("hidden");
+
+  // show summary content
+  summaryContent.classList.remove("hidden");
+
+  summaryCount.textContent =
+    likedCats.length === 0
+      ? "You didn’t like any cats this round."
+      : `You liked ${likedCats.length} out of ${cats.length} cats.`;
+
+  likedCats.forEach(cat => {
+    const tile = document.createElement("div");
+    tile.className = "liked-tile";
+    tile.innerHTML = `
+      <img src="${cat.imageUrl}" alt="${cat.name}">
+      <div class="liked-tile-caption">${cat.name}</div>
+    `;
+    likedGrid.appendChild(tile);
+  });
 }
 
 // ===== Start Btn =====
@@ -313,4 +330,5 @@ window.addEventListener("mouseup", onGestureEnd);
 
 // ===== Summary Close =====
 summaryClose.addEventListener("click", () => window.location.reload());
+
 
