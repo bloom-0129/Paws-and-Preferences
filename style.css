@@ -321,8 +321,7 @@ body {
   backdrop-filter: blur(6px);
   background: rgba(0,0,0,0.55);
   z-index: 9998;
-  color: #ffffff;
-}
+  
 
 #tutorial-overlay.active {
   display: flex;
@@ -335,6 +334,7 @@ body {
   backdrop-filter: blur(10px);
   box-shadow: 0 15px 40px rgba(0,0,0,0.45);
   animation: popTutorial .6s ease;
+  color: #ffffff !important;
 }
 
 @keyframes popTutorial {
@@ -428,5 +428,6 @@ body {
   .cat-card { max-width: 100%; }
   .cat-image-wrapper { height: 240px; }
 }
+
 
 
