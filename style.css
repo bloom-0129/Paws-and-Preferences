@@ -334,6 +334,9 @@ body {
   backdrop-filter: blur(10px);
   box-shadow: 0 15px 40px rgba(0,0,0,0.45);
   animation: popTutorial .6s ease;
+}
+
+#tutorial-overlay .tutorial-box p {
   color: #ffffff !important;
 }
 
@@ -428,6 +431,7 @@ body {
   .cat-card { max-width: 100%; }
   .cat-image-wrapper { height: 240px; }
 }
+
 
 
 
